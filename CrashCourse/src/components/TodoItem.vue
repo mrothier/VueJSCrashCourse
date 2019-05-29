@@ -1,10 +1,13 @@
 <template>
     <div class='todo-item' v-bind:class="{'is-complete':todo.completed}">
         <p>
-            <input type="checkbox" v-on:change="markComplete">
-            {{todo.title}}</p>
-            <button @click="$emit('del-todo', todo.id)"
-            class="del">x</button>
+            <!--Create Checkbox allowing user to check TodoItem as complete-->
+            <input type="checkbox" v-model="checked" v-on:change="markComplete">
+            <!--Display Title-->
+            {{todo.title}}
+            <!--Create Deletion Button-->
+            <button @click="$emit('del-todo', todo.id)" class="del">x</button>
+        </p>
     </div>
 </template>
 
@@ -12,6 +15,12 @@
 export default {
   name: 'TodoItem',
   props: ['todo'],
+  data () {
+      return {
+        // Check boxes which are already marked as completed
+        checked: this.todo.completed
+      }
+  },
   methods: {
       markComplete () {
           this.todo.completed = !this.todo.completed
